@@ -11,13 +11,21 @@ except OSError:
 else:
     s = f.readlines()
     if (len(s) != 6):
-        print "Woops ! Looks likethis is not the correct number of lines"
+        print "Woops ! Looks like this is not the correct number of lines"
         exit()
     for i in s:
         data.append(float(i))
     f.close()
 
-mileage = input("Hi ! Enter the mileage of your car here : ")
+try:
+    mileage = input("Hi ! Enter the mileage of your car here : ")
+except NameError:
+    print "Please enter a integer number"
+    exit()
+except SyntaxError:
+    print "Please enter a integer number"
+    exit()
+
 def estimate_price(data, mileage):
     global theta0
     global theta1
