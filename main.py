@@ -53,8 +53,8 @@ def gradient_descent(mileages, prices, delta = 0.01, epochs = 1000):
         theta0 = newtheta0
         theta1 = newtheta1
         # print theta0,'\t',theta1, sum(SSE)
-        # for mileage, price, yp, SSE, dSSEa, dSSEb in zip(mileages, prices, yp, SSE, dSSEa, dSSEb):
-        #     print mileage,'\t', price, '\t', yp, '\t', SSE , '\t', dSSEa, '\t', dSSEb
+        for mileage, price, yp, SSE, dSSEa, dSSEb in zip(mileages, prices, yp, SSE, dSSEa, dSSEb):
+            print mileage,'\t', price, '\t', yp, '\t', SSE , '\t', dSSEa, '\t', dSSEb
         # print sum(SSE)
 
     
@@ -112,16 +112,26 @@ axb = linear_regression([x[0] for x in points], [y[1] for y in points])
 
 gradient_descent(mileages, prices)
 # 250 000, 3600
-estim = (60000 - min_mil) / (max_mil - min_mil)
-estimlol = theta0 + theta1 * estim
-prixestime = (estimlol * (max_pri - min_pri) + min_pri)
-print theta0, theta1, estimlol, prixestime
+# estimlol = 
+prixestime = ((theta0 + theta1 * (250000 - min_mil) / (max_mil - min_mil)) * (max_pri - min_pri) + min_pri)
+print theta0, theta1,  prixestime
 
+fh = open("trained.csv", "w") 
+ 
+fh.write(str(theta0) + "\n" +  
+str(theta1) + "\n" +
+str(min_mil) + "\n" +
+str(max_mil) + "\n" +
+str(min_pri) + "\n" +
+str(max_pri) + "\n")
+ 
+fh.close() 
 # print min_mil
 
-# plt.plot([x[0] for x in points], [y[1] for y in points], 'bo')
+plt.plot([x[0] for x in points], [y[1] for y in points], 'bo')
 # plt.plot([x[0] for x in points], [(var[0] + var[1] * float(y[0])) for y in points])
-plt.plot([x[0] for x in points], [axb[0] + x[0] * axb[1] for x in points])
+# plt.plot([x[0] for x in points], [axb[0] + x[0] * axb[1] for x in points])
+plt.plot([x[0] for x in points], [theta0 + x[0] * theta1 for x in points])
 plt.xlabel("Mileage")
 plt.ylabel("Price")
 plt.show()
