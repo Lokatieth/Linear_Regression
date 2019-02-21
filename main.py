@@ -43,7 +43,7 @@ def normalize_data(points):
     return zip(mileages, prices)
     
     
-def gradient_descent(mileages, prices, delta = 0.01, epochs = 20000):
+def gradient_descent(mileages, prices, delta = 0.01, epochs = 200):
 
     global theta0
     global theta1
@@ -93,8 +93,8 @@ str(max_pri) + "\n")
 fh.close() 
  
 
-plt.plot([x[0] * max_mil for x in points], [y[1] * max_pri for y in points], 'bo')
-plt.plot([x[0] * max_mil for x in points], [(theta0 + x[0] * theta1) *  max_pri for x in points])
+plt.plot([x[0] * (max_mil - min_mil) + min_mil for x in points], [y[1] * (max_pri - min_pri) + min_pri for y in points], 'bo')
+plt.plot([x[0] * (max_mil - min_mil) + min_mil for x in points], [(theta0 + x[0] * theta1) * (max_pri - min_pri) + min_pri for x in points])
 plt.xlabel("Mileage")
 plt.ylabel("Price")
 plt.show()
